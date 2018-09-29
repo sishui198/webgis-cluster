@@ -29,30 +29,31 @@ define([
     "esri/symbols/SimpleFillSymbol",
     "esri/symbols/PictureMarkerSymbol",
     "esri/renderers/ClassBreaksRenderer",
-    "myJS/TDTTilesLayer",
+    /*"myJS/TDTTilesLayer",*/
     "myJS/ClusterLayer",
     "dojo/domReady!"
 ], function (parser, Map, Extent, on, CheckBox, HomeButton, Scalebar, dom, DomStyle, Domattr, fx, arrayUtils, esriRequest, SpatialReference,
              ArcGISTiledMapServiceLayer, ArcGISDynamicMapServiceLayer, FeatureLayer, GraphicsLayer, HeatmapRenderer,
              navigation, PopupTemplate, Point, webMercatorUtils,
              SimpleMarkerSymbol, SimpleFillSymbol, PictureMarkerSymbol, ClassBreaksRenderer,
-             TDTTilesLayer,
              ClusterLayer) {
     return {
         map: 0,
         maping: function () {
             //dojo/parser,parse()用于解析页面上所有的小部件，扫描DOM以查找类实例，并实例化它们。搜索data-dojo-type =“Class”或dojoType =“Class”
             parser.parse();
-            var initialExtent = new Extent({
+            /*var initialExtent = new Extent({
                 "xmax": 109.2, "ymax": 35.6,
                 "xmin": 106.7, "ymin": 34.1
-            });
+            });*/
             map = new Map("mapDiv", {
                 showLabels: true,
                 slider: false,//影藏缩放按钮
-                center: [111.7, 34.3]
+                center: [108.4,34.8],
+                zoom:8
                 //extent: initialExtent
             });
+
 
             var home = new HomeButton({
                 map: map
@@ -82,9 +83,12 @@ define([
             /**
              * 加载本地咸阳市遥感影像
              */
-            var xy_TDTImg = new ArcGISTiledMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_ImgMap/MapServer");
+            var lq=new ArcGISDynamicMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_cityline/MapServer");
+            map.addLayer(lq);
+
+            /*var xy_TDTImg = new ArcGISTiledMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_ImgMap/MapServer");
             var xy_TDTImgLabel = new ArcGISTiledMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_ImgMapLabel/MapServer");
-            map.addLayers([xy_TDTImg, xy_TDTImgLabel]);
+            map.addLayers([xy_TDTImg, xy_TDTImgLabel]);*/
 
             /***
              * 通过ajax获取JSON串的公共方法
@@ -240,7 +244,7 @@ define([
                 clusterCommonCode(tempUrl);
             });
             on(dom.byId("cy_qtcy"), "click", function () {
-                var tempUrl = "data/产业/其他产业.json";
+                var tempUrl = "data/产业/其它产业.json";
                 clusterCommonCode(tempUrl);
             });
             /***
