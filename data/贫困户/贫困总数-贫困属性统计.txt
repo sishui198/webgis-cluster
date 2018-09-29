@@ -1,0 +1,14 @@
+//低保贫困户   25474
+//一般贫困户   11695
+//五保贫困户   4615
+//总数        41784
+
+select a.* , b.LATITUDE as poorLat , b.LONGITUDE as poorLon from 
+(
+select 户编号 as family_id , 户主姓名 as householderName , count(1) as count  
+from ALL_PINKUN_20180301_ALL_70W where 脱贫标志 = '未脱贫' or 脱贫标志 = '返贫' and 贫困户属性 = '低保贫困户'
+group by 户编号,户主姓名
+)a LEFT JOIN
+(
+select family_id , LATITUDE , LONGITUDE from POOR_FAMILY_LOCATION 
+)b on a.family_id = b.family_id 

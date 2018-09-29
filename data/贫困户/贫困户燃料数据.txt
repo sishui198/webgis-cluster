@@ -1,0 +1,15 @@
+其他
+柴草
+干畜粪
+清洁能源
+煤炭
+
+select a.* , b.LATITUDE as poorLat , b.LONGITUDE as poorLon from 
+(
+select DISTINCT 户编号 as family_id , 户主姓名 as householderName , 主要燃料类型 as ranLiao 
+from ALL_PINKUN_20180301_ALL_70W where (脱贫标志 = '未脱贫' or 脱贫标志 = '返贫') and 主要燃料类型 like '%柴草%'
+
+)a LEFT JOIN
+(
+select family_id , LATITUDE , LONGITUDE from POOR_FAMILY_LOCATION 
+)b on a.family_id = b.family_id 

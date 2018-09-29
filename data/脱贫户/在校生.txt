@@ -1,0 +1,10 @@
+//在校生  非在校生
+
+select a.* , b.LATITUDE as poorLat , b.LONGITUDE as poorLon from 
+(
+select 姓名 as name , 与户主关系 as relation ,在校生状况 as school, 户主姓名 as householderName , 户编号 as family_id from ALL_PINKUN_20180301_ALL_70W where 脱贫标志 like '%已脱贫%'
+ and 在校生状况 != '非在校生'
+)a LEFT JOIN
+(
+select family_id , LATITUDE , LONGITUDE from POOR_FAMILY_LOCATION 
+)b on a.family_id = b.family_id 
