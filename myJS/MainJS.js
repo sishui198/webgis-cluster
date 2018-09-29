@@ -83,6 +83,11 @@ define([
              */
             var xy_TDTImg = new ArcGISTiledMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_ImgMap/MapServer");
             var xy_TDTImgLabel = new ArcGISTiledMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_ImgMapLabel/MapServer");
+            /**
+             * 部署的时候把这些代码放开把上面两行代码注释
+             **/
+            // var xy_TDTImg = new ArcGISTiledMapServiceLayer("http://1.85.55.27:8080/YouMapServer/rest/service/SxImgMap/bhDH52tgCaAb4gHY/TileServer");服务器许可
+            // var xy_TDTImgLabel = new ArcGISTiledMapServiceLayer("http://1.85.55.27:8080/YouMapServer/rest/service/SxImgLabelMap/z3WB1K-Q0-mooFCE/TileServer");服务器许可
             map.addLayers([xy_TDTImg, xy_TDTImgLabel]);
 
             /***
@@ -172,15 +177,15 @@ define([
                     clusterLayer = null;
 
                 }
-                    /***
-                     * poorData.then(func1(),func2())
-                     * 请求成功时相应函数func1，请求失败时，相应函数func2
-                     */
-                    var poorData = esriRequest({
-                        url: tempUrl,
-                        handleAs: "json"
-                    });
-                    poorData.then(addClusters, error);
+                /***
+                 * poorData.then(func1(),func2())
+                 * 请求成功时相应函数func1，请求失败时，相应函数func2
+                 */
+                var poorData = esriRequest({
+                    url: tempUrl,
+                    handleAs: "json"
+                });
+                poorData.then(addClusters, error);
 
             }
 
@@ -334,9 +339,9 @@ define([
 });
 
 /*
-*	显示综合应用模块
-*@author fmm 2015-06-09
-*/
+ *	显示综合应用模块
+ *@author fmm 2015-06-09
+ */
 function showApplyContainer() {
     // $("#coverLayer").show("slow");
     $(".selfTabs").css("opacity", "1");
@@ -346,14 +351,14 @@ function showApplyContainer() {
 }
 
 /*
-*	隐藏综合应用模块
-*@author fmm 2015-06-11
-*/
+ *	隐藏综合应用模块
+ *@author fmm 2015-06-11
+ */
 function hideApplyContainer() {
     // $("#coverLayer").hide("slow");
     $(".selfTabs").hide("slow");
     $(".closeDiv").hide("slow");
 }
-function logout(){
-    window.location.href="./login.html";
+function logout() {
+    window.location.href = "./login.html";
 }
