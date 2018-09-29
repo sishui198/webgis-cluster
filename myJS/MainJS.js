@@ -50,7 +50,8 @@ define([
             map = new Map("mapDiv", {
                 showLabels: true,
                 slider: false,//影藏缩放按钮
-                extent: initialExtent
+                center: [111.7, 34.3]
+                //extent: initialExtent
             });
 
             var home = new HomeButton({
@@ -74,9 +75,9 @@ define([
              * 加载天地图底图服务(TDTTilesLayer.js)
              * "img"表示加载影像数据，"cia"为影像标注，"vec"为矢量地图,"cva"为矢量标注
              */
-            var tiledimg = new TDTTilesLayer("img");
+            /*var tiledimg = new TDTTilesLayer("img");
             var tiledcia = new TDTTilesLayer("cia");
-            map.addLayers([tiledimg, tiledcia]);
+            map.addLayers([tiledimg, tiledcia]);*/
 
             /**
              * 加载本地咸阳市遥感影像
@@ -157,10 +158,11 @@ define([
                 if (heatmapfeatureLayer != null) {
                     map.removeLayer(heatmapfeatureLayer);
                     heatmapfeatureLayer = null;
-                } else {
+                }else {
                     heatmapfeatureLayer = heatmapFeatureLayers(tempUrl);
                     map.addLayer(heatmapfeatureLayer);
                 }
+
             }
 
             //加载聚类信息图
@@ -170,7 +172,6 @@ define([
                 if (clusterLayer != null) {
                     map.removeLayer(clusterLayer);
                     clusterLayer = null;
-
                 }
                     /***
                      * poorData.then(func1(),func2())
@@ -214,7 +215,34 @@ define([
                 var tempUrl = "data/产业/产业总体.json";
                 clusterCommonCode(tempUrl);
             });
-
+            on(dom.byId("cy_yzy"), "click", function () {
+                var tempUrl = "data/产业/养殖业.json";
+                clusterCommonCode(tempUrl);
+            });
+            on(dom.byId("cy_zzy"), "click", function () {
+                var tempUrl = "data/产业/种植业.json";
+                clusterCommonCode(tempUrl);
+            });
+            on(dom.byId("cy_ly"), "click", function () {
+                var tempUrl = "data/产业/林业.json";
+                clusterCommonCode(tempUrl);
+            });
+            on(dom.byId("cy_lvy"), "click", function () {
+                var tempUrl = "data/产业/旅游业.json";
+                clusterCommonCode(tempUrl);
+            });
+            on(dom.byId("cy_jgy"), "click", function () {
+                var tempUrl = "data/产业/加工业.json";
+                clusterCommonCode(tempUrl);
+            });
+            on(dom.byId("cy_gffd"), "click", function () {
+                var tempUrl = "data/产业/光伏发电.json";
+                clusterCommonCode(tempUrl);
+            });
+            on(dom.byId("cy_qtcy"), "click", function () {
+                var tempUrl = "data/产业/其他产业.json";
+                clusterCommonCode(tempUrl);
+            });
             /***
              * 定义样式
              * @type {{markerSymbol: *, marginLeft: string, marginTop: string}}
@@ -303,8 +331,8 @@ define([
                 var green = new PictureMarkerSymbol("Libs/img/GreenPin.png", 64, 64).setOffset(0, 15);
                 var red = new PictureMarkerSymbol("Libs/img/RedPin.png", 72, 72).setOffset(0, 15);
                 renderer.addBreak(0, 2, blue);
-                renderer.addBreak(2, 500, green);
-                renderer.addBreak(500, 1000000, red);
+                renderer.addBreak(2, 50, green);
+                renderer.addBreak(50, 1000000, red);
 
                 clusterLayer.setRenderer(renderer);
                 map.addLayer(clusterLayer);
