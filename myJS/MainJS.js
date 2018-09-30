@@ -194,11 +194,10 @@ define([
                     handleAs: "json"
                 });
                 poorData.then(addClusters, error);
-
             }
 
             on(dom.byId("poor_jk"), "click", function () {
-                var tempUrl = "data/贫困户/健康情况/健康.json"
+                var tempUrl = "data/脱贫户/健康/健康.json"
                 clusterCommonCode(tempUrl)
             });
             on(dom.byId("poor_db"), "click", function (temp) {
@@ -272,24 +271,30 @@ define([
                  * arrayUtiles.map()可以灵活处理循环问题
                  * 因为json数据在list[]下，所以这里使用resp.list
                  */
-                poorInfo = arrayUtils.map(resp.RECORDS, function (p) {
+                var tempRecorlds = [];
+                arrayUtils.map(resp.RECORDS, function (p) {
+                   if(p.POORLON != null){
+                       tempRecorlds.push(p)
+                    }
+                })
+                poorInfo = arrayUtils.map(tempRecorlds, function (p) {
                     var latlng = new Point(parseFloat(p.POORLON), parseFloat(p.POORLAT), wgs);
-                    var webMercator = webMercatorUtils.geographicToWebMercator(latlng);
-                    var attributes = {
-                        "地区": p.AREA_DESC,
-                        "所在村": p.VILLAGE_NAME,
-                        "村主导产业类型": p.村主导产业类型,
-                        "主导产业带动户数（户）": p.主导产业带动户数,
-                        "主导产业带动收益（元）": p.主导产业带动收益,
-                        "新型经营主体带动总户数（户）": p.新型经营主体带动总户数,
-                        "新型经营主体带动总收入（元）": p.新型经营主体带动总收入,
-                        "VR": p.VRURL
-                    };
-                    return {
-                        "x": webMercator.x,
-                        "y": webMercator.y,
-                        "attributes": attributes
-                    };
+                        var webMercator = webMercatorUtils.geographicToWebMercator(latlng);
+                        var attributes = {
+                            "地区": p.AREA_DESC,
+                            "所在村": p.VILLAGE_NAME,
+                            "村主导产业类型": p.村主导产业类型,
+                            "主导产业带动户数（户）": p.主导产业带动户数,
+                            "主导产业带动收益（元）": p.主导产业带动收益,
+                            "新型经营主体带动总户数（户）": p.新型经营主体带动总户数,
+                            "新型经营主体带动总收入（元）": p.新型经营主体带动总收入,
+                            "VR": p.VRURL
+                        };
+                        return {
+                            "x": webMercator.x,
+                            "y": webMercator.y,
+                            "attributes": attributes
+                        };
                 });
                 // popupTemplate to work with attributes specific to this dataset
                 var popupTemplate = new PopupTemplate({
@@ -367,6 +372,23 @@ define([
             function error(err) {
                 console.log("something failed: ", err);
             }
+
+            // show cluster extents...
+            // never called directly but useful from the console
+            window.showExtents = function () {
+                var extents = map.getLayer("clusterExtents");
+                if (extents) {
+                    map.removeLayer(extents);
+                }
+                extents = new GraphicsLayer({id: "clusterExtents"});
+                var sym = new SimpleFillSymbol().setColor(new Color([205, 193, 197, 0.5]));
+
+                arrayUtils.forEach(clusterLayer._clusters, function (c, idx) {
+                    var e = c.attributes.extent;
+                    extents.add(new Graphic(new Extent(e[0], e[1], e[2], e[3], map.spatialReference), sym));
+                }, this);
+                map.addLayer(extents, 0);
+            };
 
 
         }
