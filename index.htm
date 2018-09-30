@@ -63,6 +63,26 @@
     .self-height{
       /*height: 38px !important;*/
     }
+    html, body, #mapDiv {
+      padding:0;
+      margin:0;
+      height:100%;
+    }
+    #HomeButton {
+      position: absolute;
+      top: 95px;
+      right: 20px;
+      z-index: 50;
+    }
+    .HomeButton .home:hover {
+
+        background-color: rgba(38, 223, 255, 0.83);
+    }
+
+    .HomeButton .home:active {
+
+      background-color: rgba(199,21,133,1);
+    }
   </style>
 
 </head>
@@ -245,8 +265,11 @@
 
 <!-- 功能模块面板 end -->
 <!-- 地图容器-->
-<div id="mapDiv" style="width: auto; height: 100vh;">
-  <!--<div id="HomeButton"></div>-->
+<!--<div id="mapDiv" style="width: auto; height: 100vh;">
+  <div id="HomeButton"></div>
+</div>-->
+<div id="mapDiv" class="map">
+  <div id="HomeButton"></div>
 </div>
 <!--<div id="mapDiv"
      data-dojo-type="dijit/layout/ContentPane"
