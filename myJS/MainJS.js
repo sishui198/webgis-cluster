@@ -43,14 +43,14 @@ define([
             //dojo/parser,parse()用于解析页面上所有的小部件，扫描DOM以查找类实例，并实例化它们。搜索data-dojo-type =“Class”或dojoType =“Class”
             parser.parse();
             /*var initialExtent = new Extent({
-                "xmax": 109.2, "ymax": 35.6,
-                "xmin": 106.7, "ymin": 34.1
-            });*/
+             "xmax": 109.2, "ymax": 35.6,
+             "xmin": 106.7, "ymin": 34.1
+             });*/
             map = new Map("mapDiv", {
                 showLabels: true,
                 slider: false,//影藏缩放按钮
-                center: [108.4,34.8],
-                zoom:8
+                center: [108.4, 34.8],
+                zoom: 8
                 //extent: initialExtent
             });
 
@@ -77,26 +77,26 @@ define([
              * "img"表示加载影像数据，"cia"为影像标注，"vec"为矢量地图,"cva"为矢量标注
              */
             /*var tiledimg = new TDTTilesLayer("img");
-            var tiledcia = new TDTTilesLayer("cia");
-            map.addLayers([tiledimg, tiledcia]);*/
+             var tiledcia = new TDTTilesLayer("cia");
+             map.addLayers([tiledimg, tiledcia]);*/
 
             /**
              * 加载本地咸阳市遥感影像
              */
-            var lq=new ArcGISDynamicMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_cityline/MapServer");
-            map.addLayer(lq);
-
-            /*var xy_TDTImg = new ArcGISTiledMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_ImgMap/MapServer");
-            var xy_TDTImgLabel = new ArcGISTiledMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_ImgMapLabel/MapServer");
-
-            map.addLayers([xy_TDTImg, xy_TDTImgLabel]);*/
 
             /**
              * 部署的时候把这些代码放开把上面两行代码注释
              **/
-            // var xy_TDTImg = new ArcGISTiledMapServiceLayer("http://1.85.55.27:8080/YouMapServer/rest/service/SxImgMap/bhDH52tgCaAb4gHY/TileServer");服务器许可
-            // var xy_TDTImgLabel = new ArcGISTiledMapServiceLayer("http://1.85.55.27:8080/YouMapServer/rest/service/SxImgLabelMap/z3WB1K-Q0-mooFCE/TileServer");服务器许可
-            // map.addLayers([xy_TDTImg, xy_TDTImgLabel]);
+            var xy_TDTImg = new ArcGISTiledMapServiceLayer("http://1.85.55.27:8080/YouMapServer/rest/service/SxImgMap/bhDH52tgCaAb4gHY/TileServer");
+            var xy_TDTImgLabel = new ArcGISTiledMapServiceLayer("http://1.85.55.27:8080/YouMapServer/rest/service/SxImgLabelMap/z3WB1K-Q0-mooFCE/TileServer");
+            map.addLayers([xy_TDTImg, xy_TDTImgLabel]);
+            var lq = new ArcGISDynamicMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_cityline/MapServer");
+            map.addLayer(lq);
+
+            /*var xy_TDTImg = new ArcGISTiledMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_ImgMap/MapServer");
+             var xy_TDTImgLabel = new ArcGISTiledMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_ImgMapLabel/MapServer");
+
+             map.addLayers([xy_TDTImg, xy_TDTImgLabel]);*/
 
             /***
              * 通过ajax获取JSON串的公共方法
@@ -170,7 +170,7 @@ define([
                 if (heatmapfeatureLayer != null) {
                     map.removeLayer(heatmapfeatureLayer);
                     heatmapfeatureLayer = null;
-                }else {
+                } else {
                     heatmapfeatureLayer = heatmapFeatureLayers(tempUrl);
                     map.addLayer(heatmapfeatureLayer);
                 }
