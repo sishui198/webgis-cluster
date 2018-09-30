@@ -48,17 +48,18 @@ define([
             });*/
             map = new Map("mapDiv", {
                 showLabels: true,
+                logo: false,
                 slider: false,//影藏缩放按钮
                 center: [108.4,34.8],
-                zoom:8
+                zoom:9
                 //extent: initialExtent
             });
 
 
-            var home = new HomeButton({
+            var homebtn = new HomeButton({
                 map: map
             }, "HomeButton");
-            home.show();
+            homebtn.startup();
 
             //初始化比例尺
             var scalebar = new Scalebar({
@@ -68,8 +69,8 @@ define([
                 // use "metric" for kilometers
                 scalebarUnit: "dual"
             });
-            $(".esriScalebarLine").css({"border-color": "#fff"});
-            $(".esriScalebarLabel").css({"color": "#fff"});
+            $(".esriScalebarLine").css({"border-color": "#8dbcc2"});
+            $(".esriScalebarLabel").css({"color": "#41626a"});
             scalebar.show();
 
             /**
@@ -88,7 +89,6 @@ define([
 
             /*var xy_TDTImg = new ArcGISTiledMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_ImgMap/MapServer");
             var xy_TDTImgLabel = new ArcGISTiledMapServiceLayer("http://10.63.22.16:6080/arcgis/rest/services/Tiled/XY_ImgMapLabel/MapServer");
-
             map.addLayers([xy_TDTImg, xy_TDTImgLabel]);*/
 
             /**
